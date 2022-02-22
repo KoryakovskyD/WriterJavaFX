@@ -72,8 +72,22 @@ public class WriterJavaFX extends Application {
         btnSave.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                if (! textArea.getText().isEmpty())
-                     textArea.setText("");
+                if (! textArea.getText().isEmpty()) {
+                    String[] words = textArea.getText().split(" ");
+                    Integer num = null;
+                    String model = null;
+                    int i = 0;
+                    for (String word : words) {
+                        if (i == 0) {
+                            num = Integer.parseInt(word);
+                            i++;
+                        } else
+                            model = word;
+                    }
+                    DbServer dbServer = new DbServer("jdbc:derby://localhost:1527/j140", "j140", "j140");
+                    dbServer.addCar(num, model);
+                    textArea.setText("");
+                }
             }
         });
 
@@ -126,11 +140,6 @@ public class WriterJavaFX extends Application {
         DbServer dbServer = new DbServer("jdbc:derby://localhost:1527/j140", "j140", "j140");
         dbServer.start();
 
-        ArrayList<Car> arrayList = new ArrayList<>();
-        arrayList.add(new Car(1, "dfff"));
-        arrayList.add(new Car(2, "fggg"));
-        arrayList.add(new Car(3, "ddqwdw"));
-        arrayList.add(new Car(4, "wfwfwf"));
-        return FXCollections.observableArrayList(arrayList);
+        return FXCollections.observableArrayList(dbServer.getCars());
     }
 }
