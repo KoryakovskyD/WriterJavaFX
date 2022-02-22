@@ -1,0 +1,16 @@
+create table cars (
+	num INT,
+	model VARCHAR(50)
+);
+insert into cars (num, model) values (1, 'E250');
+insert into cars (num, model) values (2, 'SJ');
+insert into cars (num, model) values (3, 'CR-V');
+insert into cars (num, model) values (4, 'XLR');
+insert into cars (num, model) values (5, 'Gemini');
+insert into cars (num, model) values (6, 'Jetta');
+insert into cars (num, model) values (7, 'X-Type');
+insert into cars (num, model) values (8, 'Tiburon');
+insert into cars (num, model) values (9, 'Mariner');
+insert into cars (num, model) values (10, 'SLS-Class');
+
+select * from cars;

@@ -1,6 +1,7 @@
 module ru.avalon.javapp.devj140.writerjavafx {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
     opens ru.avalon.javapp.devj140.writerjavafx to javafx.fxml;

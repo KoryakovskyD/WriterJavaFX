@@ -4,16 +4,13 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -23,7 +20,6 @@ import java.util.ArrayList;
 public class WriterJavaFX extends Application {
     Scene scene,
             scene2;
-    ArrayList<Person> arrayList = new ArrayList<>();
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -77,8 +73,7 @@ public class WriterJavaFX extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 if (! textArea.getText().isEmpty())
-                    arrayList.add(new Person(textArea.getText(),"new", 1000));
-                textArea.setText("");
+                     textArea.setText("");
             }
         });
 
@@ -89,21 +84,15 @@ public class WriterJavaFX extends Application {
         Menu menuSettings1 = new Menu("View");
         menuBar1.getMenus().add(menuSettings1);
 
-        TableView<Person> tableView = new TableView<>();
+        TableView<Car> tableView = new TableView<>();
+        TableColumn<Car, Integer> numCol = new TableColumn<>("№");
+        numCol.setCellValueFactory(new PropertyValueFactory<>("num"));
+        TableColumn<Car, String> modelCol = new TableColumn<>("Model");
+        modelCol.setCellValueFactory(new PropertyValueFactory<>("model"));
+        tableView.getColumns().add(numCol);
+        tableView.getColumns().add(modelCol);
 
-        TableColumn<Person, String> firstNameCol = new TableColumn<>("First name");
-        firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        tableView.getColumns().add(firstNameCol);
-
-        TableColumn<Person, String> lastNameCol = new TableColumn<>("Last name");
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        tableView.getColumns().add(lastNameCol);
-
-        TableColumn<Person, Integer> ageCol = new TableColumn<>("Age");
-        ageCol.setCellValueFactory(new PropertyValueFactory<>("age"));
-        tableView.getColumns().add(ageCol);
-
-        tableView.setItems(getPersonList(arrayList));
+        tableView.setItems(getPersonList());
 
         Label label1 = new Label("Список записей файла");
         Button buttonNew = new Button("Новая запись");
@@ -123,8 +112,6 @@ public class WriterJavaFX extends Application {
             }
         });
 
-
-
         stage.setTitle("");
         stage.setScene(scene);
         stage.show();
@@ -134,12 +121,16 @@ public class WriterJavaFX extends Application {
         launch();
     }
 
-    private ObservableList<Person> getPersonList(ArrayList<Person> arrayList) {
-        arrayList.add(new Person("Boby","Green", 32));
-        arrayList.add(new Person("Bob","Gre", 23));
-        arrayList.add(new Person("Bobo","ZHi", 88));
-        arrayList.add(new Person("Biva","Pepa", 33));
-        arrayList.add(new Person("Buba","Lee", 65));
+    private ObservableList<Car> getPersonList() {
+
+        DbServer dbServer = new DbServer("jdbc:derby://localhost:1527/j140", "j140", "j140");
+        dbServer.start();
+
+        ArrayList<Car> arrayList = new ArrayList<>();
+        arrayList.add(new Car(1, "dfff"));
+        arrayList.add(new Car(2, "fggg"));
+        arrayList.add(new Car(3, "ddqwdw"));
+        arrayList.add(new Car(4, "wfwfwf"));
         return FXCollections.observableArrayList(arrayList);
     }
 }
