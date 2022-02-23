@@ -6,9 +6,9 @@ import java.util.Enumeration;
 import java.util.List;
 
 public class DbServer implements AutoCloseable {
-    private String url;
-    private String user;
-    private String psw;
+    private static String url;
+    private static String user;
+    private static String psw;
     private Connection con;
     private Statement st;
     private PreparedStatement ps;
@@ -37,7 +37,7 @@ public class DbServer implements AutoCloseable {
     }
 
     public static void start() {
-        try (DbServer dbServer = new DbServer("jdbc:derby://localhost:1527/j140", "j140", "j140")) {
+        try (DbServer dbServer = new DbServer(url, user, psw)) {
             dbServer.info();
             dbServer.init();
         } catch (SQLException e) {
