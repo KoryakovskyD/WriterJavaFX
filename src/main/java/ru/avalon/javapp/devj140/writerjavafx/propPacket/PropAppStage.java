@@ -49,6 +49,11 @@ public class PropAppStage extends Stage {
         });
 
 
+
+
+
+
+
         Scene scene = new Scene(enterText, 300, 250);
 
         setTitle("Settings");
