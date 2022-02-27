@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                ru.avalon.javapp.devj140.writerjavafx/ru.avalon.javapp.devj140.writerjavafx.WriterJavaFX
+                                ru.avalon.javapp.devj140.writerjavafx/ru.avalon.javapp.devj140.writerjavafx.view.WriterJavaFX
                             </mainClass>
                         </configuration>
                     </execution>

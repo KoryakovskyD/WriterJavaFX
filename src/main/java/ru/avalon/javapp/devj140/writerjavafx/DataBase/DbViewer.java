@@ -1,4 +1,4 @@
-package ru.avalon.javapp.devj140.writerjavafx;
+package ru.avalon.javapp.devj140.writerjavafx.DataBase;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,11 +11,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import static javafx.application.Application.STYLESHEET_CASPIAN;
+import static javafx.application.Application.STYLESHEET_MODENA;
+
 
 public class DbViewer extends Stage {
     String url;
     String login;
     String password;
+    boolean changeCSS= true;
     public DbViewer(String url, String login, String password)
     {
         this.url = url;
@@ -43,6 +47,8 @@ public class DbViewer extends Stage {
 
         Label label = new Label("Список записей файла");
         Button buttonNew = new Button("Новая запись");
+        Button buttonCSS = new Button("Change css");
+        buttonCSS.setId("change_the_css");
 
         VBox rootStack = new VBox();
         rootStack.setAlignment(Pos.CENTER);
@@ -50,6 +56,7 @@ public class DbViewer extends Stage {
         rootStack.getChildren().add(label);
         rootStack.getChildren().add(tableView);
         rootStack.getChildren().add(buttonNew);
+        rootStack.getChildren().add(buttonCSS);
         Scene scene = new Scene(rootStack, 400, 300);
 
         buttonNew.setOnAction(new EventHandler<ActionEvent>() {
@@ -59,6 +66,22 @@ public class DbViewer extends Stage {
             }
         });
 
+        buttonCSS.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if (changeCSS) {
+                    scene.getStylesheets().clear();
+                    scene.getStylesheets().add("file:default.css");
+                } else
+                {
+                    scene.getStylesheets().clear();
+                    scene.getStylesheets().add("file:modena.css");
+                }
+                changeCSS = !changeCSS;
+            }
+        });
+
+        scene.getStylesheets().add("file:modena.css");
         setTitle("");
         setScene(scene);
         show();

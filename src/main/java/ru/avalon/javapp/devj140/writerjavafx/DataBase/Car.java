@@ -1,4 +1,4 @@
-package ru.avalon.javapp.devj140.writerjavafx;
+package ru.avalon.javapp.devj140.writerjavafx.DataBase;
 
 public class Car {
     Integer num;

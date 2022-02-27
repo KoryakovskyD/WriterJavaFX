@@ -6,11 +6,19 @@ import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import ru.avalon.javapp.devj140.writerjavafx.propPacket.PropApp;
+import ru.avalon.javapp.devj140.writerjavafx.propPacket.PropAppStage;
+import ru.avalon.javapp.devj140.writerjavafx.view.WriterJavaFX;
+
+import java.io.File;
 
 
 public class Authorization extends Stage {
 
     Scene scene;
+    String url,
+            login,
+            password;
 
     public Authorization() {
         init();
@@ -62,6 +70,9 @@ public class Authorization extends Stage {
             try {
                 UserController.checkData(name, pass, acceptPswField);
                 bottom.setText("All fields is valid");
+                checkPropFile();
+                close();
+                new WriterJavaFX(url, login, password);
             } catch (UserException ex) {
                 bottom.setText(ex.getMessage());
             }
@@ -75,5 +86,16 @@ public class Authorization extends Stage {
         scene = new Scene(root, 300, 250);
         setTitle("Authorization");setScene(scene);
         show();
+    }
+
+    private void checkPropFile() {
+        File file = new File("propApp.prop");
+        if (!file.exists()) {
+            new PropAppStage();
+        }
+
+        url = PropApp.getValue("URL");
+        login = PropApp.getValue("login");
+        password = PropApp.getValue("password");
     }
 }
