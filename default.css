@@ -1,0 +1,21 @@
+.table-column {
+    -fx-text-fill: red;
+    -fx-alignment: CENTER;
+    -fx-padding: 10;
+}
+
+.table-view {
+    -fx-background-color: bisque;
+    -fx-color: green;
+    -fx-font-size: 15pt;
+    -fx-font-fill: #ffffff;
+}
+
+.button {
+    -fx-background: aquamarine;
+}
+
+#change_the_css {
+    -fx-font-size: 20px;
+    -fx-background-color: #aaaaaa;
+}

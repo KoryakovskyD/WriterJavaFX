@@ -1,6 +1,5 @@
-package ru.avalon.javapp.devj140.writerjavafx;
+package ru.avalon.javapp.devj140.writerjavafx.view;
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -10,24 +9,24 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import ru.avalon.javapp.devj140.writerjavafx.authorization.Authorization;
-import ru.avalon.javapp.devj140.writerjavafx.propPacket.PropApp;
+import ru.avalon.javapp.devj140.writerjavafx.DataBase.DbServer;
+import ru.avalon.javapp.devj140.writerjavafx.DataBase.DbViewer;
 import ru.avalon.javapp.devj140.writerjavafx.propPacket.PropAppStage;
 
-import java.io.File;
-
-public class WriterJavaFX extends Application {
+public class WriterJavaFX extends Stage {
     Scene scene;
     String url,
             login,
             password;
 
-    @Override
-    public void start(Stage stage) {
+    public WriterJavaFX(String url, String login, String password) {
+        this.url=url;
+        this.password = password;
+        this.login = login;
+        start();
+    }
 
-        new Authorization();
-
-        checkPropFile();
+    public void start() {
 
         BorderPane root = new BorderPane();
 
@@ -103,23 +102,13 @@ public class WriterJavaFX extends Application {
             }
         });
 
-        stage.setTitle("");
-        stage.setScene(scene);
-        stage.show();
+        setTitle("");
+        setScene(scene);
+        show();
     }
 
-    public static void main(String[] args) {
-        launch();
+    public void main(String[] args) {
+        start();
     }
 
-    private void checkPropFile() {
-        File file = new File("propApp.prop");
-        if (!file.exists()) {
-            new PropAppStage();
-        }
-
-        url = PropApp.getValue("URL");
-        login = PropApp.getValue("login");
-        password = PropApp.getValue("password");
-    }
 }
